@@ -29,8 +29,6 @@ public class Main extends Application {
         this.primaryStage.setTitle("KBSE_Nienhueser_Koschmann_Schaefer_Oldemeier");
         showMainView();
         showUserView();
-        
-        
     }
     
     private void showMainView() throws IOException {
@@ -45,14 +43,14 @@ public class Main extends Application {
     
     public static void showUserView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("userview/UserView.fxml"));
+        loader.setLocation(Main.class.getResource("view/UserView.fxml"));
         BorderPane userView = loader.load();
         mainLayout.setCenter(userView);
     }
     
     public static void showPostView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("postview/PostView.fxml"));
+        loader.setLocation(Main.class.getResource("view/PostView.fxml"));
         BorderPane postView = loader.load();
         mainLayout.setCenter(postView);
     }
