@@ -12,7 +12,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
 import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -27,7 +26,6 @@ import kbse_nkso_client.access.PostDTO;
  *
  * @author philippnienhuser
  */
-@Dependent
 public class RestFrontendController implements Serializable {
     private final static String ADRESS = "http://localhost:8080/kbse-pcnv/r";
     

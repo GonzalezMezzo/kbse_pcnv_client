@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import kbse_nkso_client.Main;
@@ -25,9 +23,7 @@ import kbse_nkso_client.controller.RestFrontendController;
  *
  * @author philippnienhuser
  */
-
 @Named(value = "viewmodel")
-@Dependent
 public class Viewmodel implements Serializable{
     /*
     @Inject

@@ -6,7 +6,6 @@
 package kbse_nkso_client.controller;
 
 
-import javax.ejb.Stateless;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
@@ -15,5 +14,4 @@ import javax.ws.rs.core.Application;
  * @author philippnienhueser
  */
 @ApplicationPath("r")
-@Stateless
 public class ApplicationConfig extends Application{}
