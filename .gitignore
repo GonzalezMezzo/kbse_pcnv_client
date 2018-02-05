@@ -1,7 +1,9 @@
 dist/
 build/
-lib/*
+lib/nblibraries.properties
+lib/junit_4
+lib/CopyLibs
 nbproject/*
 
-!lib/gson-2.6.2.jar
+
 *.DS_Store
