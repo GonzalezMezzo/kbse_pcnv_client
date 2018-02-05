@@ -34,12 +34,17 @@ public class RestFrontendController implements Serializable {
     private Client client;
     private WebTarget wt;
     
+    public RestFrontendController(){
+        this.client = ClientBuilder.newClient();
+        this.wt = client.target(ADRESS);
+    }
+    /*
     @PostConstruct
     public void init(){
         this.client = ClientBuilder.newClient();
         this.wt = client.target(ADRESS);
     }
-    
+    */
     public Boolean addPost(PostDTO p){
         this.wt = client.target(ADRESS+"/addPost");
         Invocation.Builder build = this.wt.request(MediaType.APPLICATION_JSON);
@@ -68,6 +73,7 @@ public class RestFrontendController implements Serializable {
             return false;
         }
     }
+    
     List<PostDTO> refreshState() {
         this.wt = client.target(ADRESS+"/refreshState");
        Invocation.Builder build = this.wt.request(MediaType.APPLICATION_JSON);

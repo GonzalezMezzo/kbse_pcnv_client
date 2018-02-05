@@ -12,9 +12,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import kbse_nkso_client.Main;
 import kbse_nkso_client.access.CommentDTO;
 import kbse_nkso_client.access.PostDTO;
 import kbse_nkso_client.controller.RestFrontendController;
@@ -25,16 +27,16 @@ import kbse_nkso_client.controller.RestFrontendController;
  */
 
 @Named(value = "viewmodel")
-@SessionScoped
+@Dependent
 public class Viewmodel implements Serializable{
     /*
     @Inject
     RestFrontendController rfctrl;
     */
     
-    @Inject
+
     RestFrontendController restctrl;
-    
+
     private static final String INDEX = "/index.xhtml?faces-redirect=true";
     private static final String RATING = "/rating.xhtml?faces-redirect=true";
     
@@ -50,21 +52,22 @@ public class Viewmodel implements Serializable{
     
     private int test;
     private Long currentPostId;
-
-    public int getTest() {
-        return test;
+    
+    public Viewmodel(){
+        this.restctrl = Main.getRestctrl();
+        this.inputTextUser = "User";
+        refreshState();
+        ratingCollector = new int[postList.size()];
     }
-
-    public void setTest(int test) {
-        this.test = test;
-    }
-
+    
+    /*
     @PostConstruct
     public void init(){
         this.inputTextUser = "User";
         refreshState();
         ratingCollector = new int[postList.size()];
     }
+    */
     
     public String changeUser(int i){
         if(i==0)

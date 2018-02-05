@@ -18,9 +18,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javax.inject.Inject;
 import kbse_nkso_client.Main;
 import kbse_nkso_client.access.CommentDTO;
 import kbse_nkso_client.access.PostDTO;
+import kbse_nkso_client.controller.Viewmodel;
 
 /**
  * FXML Controller class
@@ -29,6 +31,9 @@ import kbse_nkso_client.access.PostDTO;
  */
 public class PostViewController implements Initializable {
 
+
+    Viewmodel viewmodel = Main.getViewmodel();
+    
     @FXML
     private ListView<PostDTO> listView;
 
@@ -42,7 +47,8 @@ public class PostViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<PostDTO> data = FXCollections.observableArrayList(new PostDTO(new Long(3), "google", "qwdqwd", "qwdqwd", 8, new HashMap<String, Integer>(), new ArrayList<CommentDTO>()));
+        
+        ObservableList<PostDTO> data = FXCollections.observableArrayList(viewmodel.getPostList());
         listView.setItems(data);
         //https://stackoverflow.com/questions/29546036/make-list-view-show-what-i-want-javafx
         listView.setCellFactory(lv -> new ListCell<PostDTO>() {
