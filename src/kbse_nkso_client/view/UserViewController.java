@@ -10,7 +10,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import kbse_nkso_client.Main;
+import kbse_nkso_client.controller.ModelController;
 
 /**
  * FXML Controller class
@@ -19,8 +21,13 @@ import kbse_nkso_client.Main;
  */
 public class UserViewController implements Initializable {
     
+    ModelController modelctrl = Main.getModelController();
+    
+    @FXML TextField submitUser;
+    
     @FXML
-    private void goToPostView() throws IOException{
+    private void changeUser() throws IOException{
+        modelctrl.setInputTextUser(submitUser.getText());
         Main.showPostView();
     }
     
@@ -29,7 +36,7 @@ public class UserViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
     
 }

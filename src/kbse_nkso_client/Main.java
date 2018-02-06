@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import kbse_nkso_client.controller.RestFrontendController;
-import kbse_nkso_client.controller.Viewmodel;
+import kbse_nkso_client.controller.ModelController;
 
 /**
  *
@@ -22,7 +22,7 @@ import kbse_nkso_client.controller.Viewmodel;
  */
 public class Main extends Application {
     
-    private static Viewmodel viewmodel;
+    private static ModelController modelctrl;
     private static RestFrontendController restctrl;
     private Stage primaryStage;
     private static BorderPane mainLayout;
@@ -30,7 +30,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         restctrl = new RestFrontendController();
-        viewmodel = new Viewmodel();
+        modelctrl = new ModelController();
         
         this.primaryStage = stage;
         this.primaryStage.setTitle("KBSE_Nienhueser_Koschmann_Schaefer_Oldemeier");
@@ -62,8 +62,8 @@ public class Main extends Application {
         mainLayout.setCenter(postView);
     }
 
-    public static Viewmodel getViewmodel() {
-        return viewmodel;
+    public static ModelController getModelController() {
+        return modelctrl;
     }
 
     public static RestFrontendController getRestctrl() {
