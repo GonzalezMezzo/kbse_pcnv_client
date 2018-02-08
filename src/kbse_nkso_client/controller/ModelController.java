@@ -67,8 +67,8 @@ public class ModelController implements Serializable{
         refreshState();
     }
     
-    public void submitComment(){
-        CommentDTO comment = new CommentDTO(inputTextComment, inputTextUser, currentPost);
+    public void submitComment(String message, String user, PostDTO currentPost){
+        CommentDTO comment = new CommentDTO(message, user, currentPost);
         restctrl.addComment(currentPostId, comment);
         refreshState();
     }

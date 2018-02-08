@@ -9,32 +9,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javax.inject.Inject;
 import kbse_nkso_client.Main;
 import kbse_nkso_client.access.CommentDTO;
 import kbse_nkso_client.access.PostDTO;
@@ -50,23 +39,28 @@ public class PostViewController implements Initializable {
     ModelController modelctrl = Main.getModelController();
 
     @FXML
-    private ListView<PostDTO> listView;
+    private ListView<PostDTO> listViewPosts;
     @FXML
     private ListView<PostDTO> listViewRatings;
+    @FXML
+    private ListView<CommentDTO> listViewComments;
 
     /////////////////////////////////////////////submitpost
     @FXML
     private TextField submitURL;
     @FXML
     private TextArea submitDesc;
+    @FXML 
+    private TextArea submitComment;
     @FXML
     private Label userLabel;
 
-
     @FXML
-    private void goToUserView() throws IOException {
-        Main.showUserView();
-    }
+    private Label link;
+    @FXML
+    private Label description;
+    
+    private PostDTO currentPost;
 
     /**
      * Initializes the controller class.
@@ -74,16 +68,29 @@ public class PostViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        description.setText("");
+        link.setText("");
         userLabel.setText("User: " + modelctrl.getInputTextUser());
         refreshListView();
         refreshRatingList();
+       
+        
+        
+        listViewPosts.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PostDTO>() {
+
+            @Override
+            public void changed(ObservableValue<? extends PostDTO> observable, PostDTO oldValue, PostDTO newValue) {
+                selectPost(newValue);
+                System.out.println("Selected item: " + newValue.getUrl());
+            }
+        });
     }
 
     public void refreshListView() {
         ObservableList<PostDTO> data = FXCollections.observableArrayList(modelctrl.getPostList());
-        listView.setItems(data);
+        listViewPosts.setItems(data);
         //https://stackoverflow.com/questions/29546036/make-list-view-show-what-i-want-javafx
-        listView.setCellFactory(lv -> new ListCell<PostDTO>() {
+        listViewPosts.setCellFactory(lv -> new ListCell<PostDTO>() {
             @Override
             public void updateItem(PostDTO item, boolean empty) {
                 super.updateItem(item, empty);
@@ -92,6 +99,7 @@ public class PostViewController implements Initializable {
                 } else {
                     String text = item.getUrl();
                     setText(text);
+                    
                     /*
                     Button butt = new Button();
                     butt.setOnAction(new EventHandler<ActionEvent>() {
@@ -101,61 +109,84 @@ public class PostViewController implements Initializable {
                         }
                     });
                     setGraphic(butt);
-*/
+                     */
                 }
             }
         });
     }
 
-    
     //https://stackoverflow.com/questions/35963888/how-to-create-a-listview-of-complex-objects-and-allow-editing-a-field-on-the-obj
     public void refreshRatingList() {
-        
 
         ObservableList<PostDTO> data = FXCollections.observableArrayList(modelctrl.getPostList());
         listViewRatings.setItems(data);
         //https://stackoverflow.com/questions/29546036/make-list-view-show-what-i-want-javafx
         listViewRatings.setCellFactory(lv -> new ListCell<PostDTO>() {
-            
+
             TextField input = new TextField();
-            
+
             @Override
             public void updateItem(PostDTO item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
                     setText(null);
                     setGraphic(null);
-                } else if(userPermittedToEditCell()){
-                    
+                } else if (userPermittedToEditCell()) {
+
                     int totalRating = item.getTotalRating();
                     String url = item.getUrl();
-                    setText("Total: "+ totalRating + " URL: " +url);
-                    
+                    setText("Total: " + totalRating + " URL: " + url);
+
                     input.setText("0");
                     setGraphic(input);
-                } else{
-                    
+                } else {
+
                     int totalRating = item.getTotalRating();
                     String url = item.getUrl();
-                    setText("Total: "+ totalRating + " URL: " +url);
-                    
+                    setText("Total: " + totalRating + " URL: " + url);
+
                     input.setPromptText("not able to vote");
                     input.setEditable(false);
                     setGraphic(input);
                 }
 
             }
-            
+
         });
     }
     
-    public boolean userPermittedToEditCell(){
+    public void refreshCommentList(){
+        
+        ObservableList<CommentDTO> data = FXCollections.observableArrayList(this.currentPost.getComments());
+        listViewComments.setItems(data);
+        //https://stackoverflow.com/questions/29546036/make-list-view-show-what-i-want-javafx
+        listViewComments.setCellFactory(lv -> new ListCell<CommentDTO>() {
+            @Override
+            public void updateItem(CommentDTO item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    String text = item.getCreator() + ": " + item.getMessage();
+                    setText(text);
+                }
+            }
+        });
+    }
+
+    public boolean userPermittedToEditCell() {
         return false;
     }
 
     @FXML
     public void submitPost() {
         modelctrl.submitLink(submitURL.getText(), submitDesc.getText());
+        refreshListView();
+    }
+    
+    @FXML
+    public void submitComment() {
+        modelctrl.submitComment(submitComment.getText(), userLabel.getText(), currentPost);
         refreshListView();
     }
 
@@ -193,6 +224,14 @@ public class PostViewController implements Initializable {
     }
 
     @FXML
+    private void selectPost(PostDTO post) {
+        this.currentPost = post;
+        this.description.setText(post.getDescription()); 
+        this.link.setText(post.getUrl());
+         refreshCommentList();
+    }
+
+    @FXML
     private void showWarning(String message) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -200,6 +239,11 @@ public class PostViewController implements Initializable {
         alert.setContentText(message);
 
         alert.showAndWait();
+    }
+    
+    @FXML
+    private void goToUserView() throws IOException {
+        Main.showUserView();
     }
 
 }
