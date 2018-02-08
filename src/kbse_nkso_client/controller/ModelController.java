@@ -56,7 +56,6 @@ public class ModelController implements Serializable{
     
     public void submitLink(String url, String description){
         PostDTO post = new PostDTO(url,description,inputTextUser,0,new HashMap<String,Integer>());
-        post.getComments().add(new CommentDTO(description, this.inputTextUser, post));
         post.getRatings().put(inputTextUser, 0);
         restctrl.addPost(post);
         refreshState();
@@ -67,8 +66,8 @@ public class ModelController implements Serializable{
         refreshState();
     }
     
-    public void submitComment(String message, String user, PostDTO currentPost){
-        CommentDTO comment = new CommentDTO(message, user, currentPost);
+    public void submitComment(String message, String user, PostDTO post){
+        CommentDTO comment = new CommentDTO(message, user, post.getId());
         restctrl.addComment(currentPostId, comment);
         refreshState();
     }

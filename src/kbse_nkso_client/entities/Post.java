@@ -168,7 +168,7 @@ public class Post implements Serializable {
 
     @Override
     public String toString() {
-        return "enitities.Post[ id=" + id + " ]";
+        return "enitties.Post[ id=" + id + " ]";
     }
     
 }
