@@ -20,6 +20,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -44,6 +46,15 @@ public class PostViewController implements Initializable {
     private ListView<PostDTO> listViewRatings;
     @FXML
     private ListView<CommentDTO> listViewComments;
+    @FXML
+    private TableView<PostDTO> tableViewRatings;
+    @FXML
+    private TableColumn<PostDTO, String> tableColumnUrl;
+    @FXML
+    private TableColumn<PostDTO, Integer> tableColumnRating;
+    @FXML
+    private TableColumn<PostDTO, Integer> tableColumnTotalRating;
+
 
     /////////////////////////////////////////////submitpost
     @FXML
@@ -114,6 +125,14 @@ public class PostViewController implements Initializable {
             }
         });
     }
+    
+    public void refreshRatingTable(){
+        ObservableList<PostDTO> data = FXCollections.observableArrayList(modelctrl.getPostList());
+        tableViewRatings.setItems(data);
+        
+        
+        
+    }
 
     //https://stackoverflow.com/questions/35963888/how-to-create-a-listview-of-complex-objects-and-allow-editing-a-field-on-the-obj
     public void refreshRatingList() {
@@ -151,7 +170,6 @@ public class PostViewController implements Initializable {
                 }
 
             }
-
         });
     }
     

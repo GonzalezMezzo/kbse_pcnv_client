@@ -6,6 +6,8 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
@@ -60,6 +62,13 @@
                                                 <Button layoutX="396.0" layoutY="8.0" mnemonicParsing="false" text="Update" />
                                                 <Label layoutX="14.0" layoutY="12.0" text="Distribute 10 Points to the Sites u like" />
                                                 <ListView fx:id="listViewRatings" layoutX="113.0" layoutY="42.0" prefHeight="287.0" prefWidth="462.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0" />
+                                    <TableView fx:id="TableViewRatings" layoutX="113.0" layoutY="43.0" prefHeight="286.0" prefWidth="462.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="43.0">
+                                      <columns>
+                                        <TableColumn fx:id="tableColumnUrl" prefWidth="175.0" text="Url" />
+                                        <TableColumn fx:id="tableColumnRating" prefWidth="114.0" text="Rating" />
+                                          <TableColumn fx:id="tableColumnTotalRating" prefWidth="172.0" text="Total Rating" />
+                                      </columns>
+                                    </TableView>
                                             </children>
                                         </AnchorPane>
                                     </content>
