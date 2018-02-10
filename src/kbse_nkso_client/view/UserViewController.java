@@ -28,6 +28,10 @@ public class UserViewController implements Initializable {
     @FXML TextField inputTextLName;
     @FXML TextField inputTextEMail;
     
+    /**
+     * 
+     * @throws IOException 
+     */
     @FXML
     private void changeUser() throws IOException{
         ctrl.setInputTextUser(inputTextUser.getText());

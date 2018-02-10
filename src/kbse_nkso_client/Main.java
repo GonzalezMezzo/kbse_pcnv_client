@@ -13,7 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import kbse_nkso_client.controller.RestFrontendController;
+import kbse_nkso_client.rest.RestFrontendController;
 import kbse_nkso_client.controller.ModelController;
 
 /**
@@ -27,6 +27,11 @@ public class Main extends Application {
     private Stage primaryStage;
     private static BorderPane mainLayout;
     
+    /**
+     * 
+     * @param stage
+     * @throws Exception 
+     */
     @Override
     public void start(Stage stage) throws Exception {
         restctrl = new RestFrontendController();
@@ -38,6 +43,10 @@ public class Main extends Application {
         showUserView();
     }
     
+    /**
+     * 
+     * @throws IOException 
+     */
     private void showMainView() throws IOException {
        FXMLLoader loader = new FXMLLoader();
        loader.setLocation(Main.class.getResource("view/MainView.fxml"));
@@ -48,6 +57,10 @@ public class Main extends Application {
        primaryStage.show();
     }
     
+    /**
+     * 
+     * @throws IOException 
+     */
     public static void showUserView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/UserView.fxml"));
@@ -55,6 +68,10 @@ public class Main extends Application {
         mainLayout.setCenter(userView);
     }
     
+    /**
+     * 
+     * @throws IOException 
+     */
     public static void showPostView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/PostView.fxml"));
