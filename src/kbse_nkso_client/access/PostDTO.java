@@ -5,107 +5,123 @@
  */
 package kbse_nkso_client.access;
 
+import kbse_nkso_client.entities.Post;
+import kbse_nkso_client.entities.Comment;
+import kbse_nkso_client.entities.Rating;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import kbse_nkso_client.entities.Comment;
-import kbse_nkso_client.entities.Post;
 
 /**
  *
  * @author philippnienhuser
  */
-public class PostDTO implements Serializable{
+public class PostDTO implements Serializable {
 
-    public static PostDTO toPOJO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     private Long id;
     private String url;
     private String description;
-    private String creator;
+    private SystemUserDTO creatorId;
+    //private Long creatorId;
     private int totalRating;
+    private Integer tmpRating;
     private List<CommentDTO> comments;
-    private Map<String,Integer> ratings;
+    private List<RatingDTO> ratings;
+    //private List<Long> comments;
+    //private List<Long> ratings;
 
-    public PostDTO(){}
-    
-    public PostDTO(String url, String comment, String creator, int totalRating, Map<String,Integer> ratings){
+    public PostDTO() {
+    }
+
+    public PostDTO(String url, String comment, SystemUserDTO creatorId, int totalRating, List<RatingDTO> ratings) {
         this.url = url;
         this.description = comment;
         this.comments = new ArrayList<>();
-        this.creator = creator;
+        this.creatorId = creatorId;
         this.totalRating = totalRating;
         this.ratings = ratings;
+        this.tmpRating = new Integer(0);
     }
-    
-    public PostDTO(Long id, String url,String comment, String creator, int totalRating, Map<String,Integer> ratings, List<CommentDTO> comments){
-        this.id =id;
+
+    public PostDTO(Long id, String url, String comment, SystemUserDTO creatorId, int totalRating, List<RatingDTO> ratings, List<CommentDTO> comments) {
+        this.id = id;
         this.description = comment;
         this.url = url;
         this.comments = comments;
-        this.creator = creator;
+        this.creatorId = creatorId;
         this.totalRating = totalRating;
         this.ratings = ratings;
+        this.tmpRating = new Integer(1);
     }
-    
-    public static PostDTO toPostDTO(Post p){
-        if(p == null){
+
+    public static PostDTO toPostDTO(Post p) {
+        if (p == null) {
             return null;
         }
-        List<CommentDTO> comments = new ArrayList<CommentDTO>();
-        for(Comment c: p.getComments()){
+        List<CommentDTO> comments = new ArrayList<>();
+        for (Comment c : p.getComments()) {
             comments.add(CommentDTO.toCommentDTO(c));
         }
-        return new PostDTO(p.getId(),p.getUrl(),p.getDescription(), p.getCreator(), p.getTotalRating(), p.getRatings(), comments);
+        List<RatingDTO> ratings = new ArrayList<>();
+        for (Rating rating : p.getRatings()) {
+            ratings.add(RatingDTO.toRatingDTO(rating));
+        }
+        
+        return new PostDTO(p.getId(), p.getUrl(), p.getDescription(), SystemUserDTO.toSystemUserDTO(p.getAuthor()), p.getTotalRating(), ratings, comments);
     }
-    
-    public Post toPost(){
-        return PostBuilder.create().url(this.url).comment(this.description).creator(this.creator).totalRating(this.totalRating).ratings(this.ratings).build();
+
+    public Post toPost() {
+        ArrayList<Rating> ratings = new ArrayList<>();
+        for (RatingDTO rating : this.ratings) {
+            ratings.add(rating.toRating());
+        }
+        return PostBuilder.create().url(this.url).comment(this.description).creator(this.creatorId.toSystemUser()).totalRating(this.totalRating).ratings(ratings).build();
     }
-    
-    public JsonObject toJsonObject(){
+
+    public JsonObject toJsonObject() {
         JsonObjectBuilder js = Json.createObjectBuilder();
         Gson gson = new Gson();
         String mapString = gson.toJson(this.ratings);
         String listString = gson.toJson(this.comments);
-        if(this.id != null){
+        if (this.id != null) {
             js.add("id", this.id);
         }
         js.add("url", this.url)
-           .add("description", this.description)
-           .add("creator", this.creator)
-           .add("totalRating", this.totalRating)
-           .add("ratings", mapString)
-           .add("comments", listString);
+                .add("description", this.description)
+                .add("url", this.url)
+                .add("creatorId", gson.toJson(this.creatorId, SystemUserDTO.class))
+                .add("totalRating", this.totalRating)
+                .add("ratings", mapString)
+                .add("comments", listString);
         return js.build();
     }
-    
-    public static PostDTO toPOJO(JsonObject js){
+
+    public static PostDTO toPOJO(JsonObject js) {
         Gson gson = new Gson();
-        
+
         PostDTO p = new PostDTO();
-        if(js.getJsonNumber("id")!= null){
+        if (js.getJsonNumber("id") != null) {
             p.setId(js.getJsonNumber("id").longValue());
         }
         p.setUrl(js.getString("url"));
         p.setDescription(js.getString("description"));
-        p.setCreator(js.getString("creator"));
+        p.setCreatorId(gson.fromJson(js.getString("creatorId"), SystemUserDTO.class));
         p.setTotalRating(js.getInt("totalRating"));
-        p.setComments(gson.fromJson(js.getString("comments"), new TypeToken<List<CommentDTO>>(){}.getType()));
-        p.setRatings(gson.fromJson(js.getString("ratings"),new TypeToken<Map<String, Integer>>() {
-		}.getType()));
+        p.setComments(gson.fromJson(js.getString("comments"), new TypeToken<List<CommentDTO>>() {
+        }.getType()));
+        p.setRatings(gson.fromJson(js.getString("ratings"), new TypeToken<List<RatingDTO>>() {
+        }.getType()));
         return p;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -130,12 +146,12 @@ public class PostDTO implements Serializable{
         this.description = description;
     }
 
-    public String getCreator() {
-        return creator;
+    public SystemUserDTO getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
+    public void setCreatorId(SystemUserDTO creatorId) {
+        this.creatorId = creatorId;
     }
 
     public int getTotalRating() {
@@ -146,11 +162,11 @@ public class PostDTO implements Serializable{
         this.totalRating = totalRating;
     }
 
-    public Map<String, Integer> getRatings() {
+    public List<RatingDTO> getRatings() {
         return ratings;
     }
 
-    public void setRatings(Map<String, Integer> ratings) {
+    public void setRatings(List<RatingDTO> ratings) {
         this.ratings = ratings;
     }
 
@@ -161,8 +177,15 @@ public class PostDTO implements Serializable{
     public void setComments(List<CommentDTO> comments) {
         this.comments = comments;
     }
+
+    public Integer getTmpRating() {
+        return tmpRating;
+    }
+
+    public void setTmpRating(Integer tmpRating) {
+        this.tmpRating = tmpRating;
+    }
     
     
-    
-    
+
 }

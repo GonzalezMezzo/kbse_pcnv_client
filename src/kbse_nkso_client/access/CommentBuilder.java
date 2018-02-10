@@ -6,8 +6,8 @@
 package kbse_nkso_client.access;
 
 import kbse_nkso_client.entities.Comment;
-
-
+import kbse_nkso_client.entities.Post;
+import kbse_nkso_client.entities.SystemUser;
 
 /**
  *
@@ -18,8 +18,8 @@ public class CommentBuilder {
     private long id;
     private String message;
     private String timeStamp;
-    private String creator;
-    private Long ownerId;
+    private SystemUser creatorId;
+    private Post ownerId;
 
     private CommentBuilder(){}
     
@@ -32,8 +32,8 @@ public class CommentBuilder {
         res.setId(this.id);
         res.setMessage(this.message);
         res.setTimestamp(this.timeStamp);
-        res.setCreator(this.creator);
-        res.setOwnerId(this.ownerId);
+        res.setAuthor(this.creatorId);
+        //res.setPost(this.ownerId);
         return res;
     }
 
@@ -52,12 +52,12 @@ public class CommentBuilder {
         return this;
     }
 
-    public CommentBuilder creator(String creator) {
-        this.creator = creator;
+    public CommentBuilder creator(SystemUser creator) {
+        this.creatorId = creator;
         return this;
     }
     
-    public CommentBuilder owner(Long owner){
+    public CommentBuilder owner(Post owner){
         this.ownerId = owner;
         return this;
     }

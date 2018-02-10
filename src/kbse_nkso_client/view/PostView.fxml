@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kbse_nkso_client.view.PostViewController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kbse_nkso_client.view.PostViewController">
     <center>
         <SplitPane dividerPositions="0.22240802675585283" BorderPane.alignment="CENTER">
             <items>
@@ -44,10 +44,10 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <Label layoutX="15.0" layoutY="14.0" text="Topic:" />
-                                                <Label fx:id="link" layoutX="209.0" layoutY="14.0" />
-                                                <Label layoutX="17.0" layoutY="31.0" text="Desc:" />
-                                                <Label fx:id="description" layoutX="172.0" layoutY="31.0" />
+                                                <Label layoutX="15.0" layoutY="6.0" text="Topic:" />
+                                                <Label fx:id="link" layoutX="62.0" layoutY="6.0" prefHeight="17.0" prefWidth="64.0" />
+                                                <Label layoutX="17.0" layoutY="23.0" text="Desc:" />
+                                                <Label fx:id="description" layoutX="62.0" layoutY="23.0" prefHeight="17.0" prefWidth="64.0" />
                                                 <ListView fx:id="listViewComments" layoutX="147.0" layoutY="102.0" prefHeight="227.0" prefWidth="462.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="102.0" />
                                     <Button layoutX="396.0" layoutY="48.0" mnemonicParsing="false" onAction="#submitComment" text="Add" />
                                     <TextArea fx:id="submitComment" layoutX="17.0" layoutY="48.0" prefHeight="47.0" prefWidth="372.0" promptText="Your Comment" />
@@ -59,10 +59,10 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <Button layoutX="396.0" layoutY="8.0" mnemonicParsing="false" text="Update" />
+                                                <Button layoutX="396.0" layoutY="8.0" mnemonicParsing="false" onAction="#submitRating" text="Update" />
                                                 <Label layoutX="14.0" layoutY="12.0" text="Distribute 10 Points to the Sites u like" />
                                                 <ListView fx:id="listViewRatings" layoutX="113.0" layoutY="42.0" prefHeight="287.0" prefWidth="462.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0" />
-                                    <TableView fx:id="TableViewRatings" layoutX="113.0" layoutY="43.0" prefHeight="286.0" prefWidth="462.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="43.0">
+                                    <TableView fx:id="tableViewRatings" layoutX="113.0" layoutY="43.0" prefHeight="286.0" prefWidth="462.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="43.0">
                                       <columns>
                                         <TableColumn fx:id="tableColumnUrl" prefWidth="175.0" text="Url" />
                                         <TableColumn fx:id="tableColumnRating" prefWidth="114.0" text="Rating" />

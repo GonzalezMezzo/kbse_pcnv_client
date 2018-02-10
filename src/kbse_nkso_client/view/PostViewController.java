@@ -14,22 +14,31 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.util.Callback;
 import kbse_nkso_client.Main;
 import kbse_nkso_client.access.CommentDTO;
 import kbse_nkso_client.access.PostDTO;
+import kbse_nkso_client.access.RatingDTO;
+import kbse_nkso_client.access.SystemUserDTO;
 import kbse_nkso_client.controller.ModelController;
+
 
 /**
  * FXML Controller class
@@ -72,18 +81,35 @@ public class PostViewController implements Initializable {
     private Label description;
     
     private PostDTO currentPost;
+    private SystemUserDTO currentUser;
+    
+    private final ObservableList<Integer> integerList
+            = FXCollections.observableArrayList(
+                    new Integer(0),
+                    new Integer(1),
+                    new Integer(2),
+                    new Integer(3),
+                    new Integer(4),
+                    new Integer(5),
+                    new Integer(6),
+                    new Integer(7),
+                    new Integer(8),
+                    new Integer(9),
+                    new Integer(10));
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        currentUser = modelctrl.getCurrentUser();
+        modelctrl.refreshState();
         description.setText("");
         link.setText("");
         userLabel.setText("User: " + modelctrl.getInputTextUser());
         refreshListView();
-        refreshRatingList();
+        //refreshRatingList();
+        refreshRatingTable();
        
         
         
@@ -125,11 +151,36 @@ public class PostViewController implements Initializable {
             }
         });
     }
+                                    
     
     public void refreshRatingTable(){
+        tableViewRatings.setEditable(true);
         ObservableList<PostDTO> data = FXCollections.observableArrayList(modelctrl.getPostList());
         tableViewRatings.setItems(data);
         
+        Callback<TableColumn<PostDTO, Integer>, TableCell<PostDTO, Integer>> comboBoxCellFactory
+                = (TableColumn<PostDTO, Integer> param) -> new ComboBoxEditingCell();
+        
+        tableColumnUrl.setCellValueFactory(
+                new PropertyValueFactory<PostDTO, String>("url"));
+        
+        
+        tableColumnRating.setCellValueFactory(
+                new PropertyValueFactory<PostDTO, Integer>("tmpRating"));
+        
+        tableColumnRating.setCellFactory(comboBoxCellFactory);
+        
+        tableColumnRating.setOnEditCommit(
+                (TableColumn.CellEditEvent<PostDTO, Integer> t) -> {
+                    ((PostDTO) t.getTableView().getItems()
+                    .get(t.getTablePosition().getRow()))
+                    .setTmpRating(t.getNewValue());
+
+                });
+        
+        
+        tableColumnTotalRating.setCellValueFactory(
+                new PropertyValueFactory<PostDTO, Integer>("totalRating"));
         
         
     }
@@ -175,7 +226,7 @@ public class PostViewController implements Initializable {
     
     public void refreshCommentList(){
         
-        ObservableList<CommentDTO> data = FXCollections.observableArrayList(this.currentPost.getComments());
+        ObservableList<CommentDTO> data = FXCollections.observableArrayList(modelctrl.refreshPost(currentPost).getComments());
         listViewComments.setItems(data);
         //https://stackoverflow.com/questions/29546036/make-list-view-show-what-i-want-javafx
         listViewComments.setCellFactory(lv -> new ListCell<CommentDTO>() {
@@ -185,7 +236,7 @@ public class PostViewController implements Initializable {
                 if (empty) {
                     setText(null);
                 } else {
-                    String text = item.getCreator() + ": " + item.getMessage();
+                    String text = item.getCreatorId().getUsername() + ": " + item.getMessage();
                     setText(text);
                 }
             }
@@ -204,8 +255,14 @@ public class PostViewController implements Initializable {
     
     @FXML
     public void submitComment() {
-        modelctrl.submitComment(submitComment.getText(), userLabel.getText(), currentPost);
-        refreshListView();
+        modelctrl.submitComment(submitComment.getText());
+        refreshCommentList();
+    }
+    
+    @FXML
+    public void submitRating(){
+        modelctrl.submitRating();
+        refreshRatingTable();
     }
 
     @FXML
@@ -247,6 +304,7 @@ public class PostViewController implements Initializable {
         this.description.setText(post.getDescription()); 
         this.link.setText(post.getUrl());
          refreshCommentList();
+         refreshRatingTable();
     }
 
     @FXML
@@ -262,6 +320,92 @@ public class PostViewController implements Initializable {
     @FXML
     private void goToUserView() throws IOException {
         Main.showUserView();
+    }
+    
+    class ComboBoxEditingCell extends TableCell<PostDTO, Integer> {
+
+        private ComboBox<Integer> comboBox;
+
+        private ComboBoxEditingCell() {
+        }
+
+        @Override
+        public void startEdit() {
+            if (!isEmpty()) {
+                super.startEdit();
+                createComboBox();
+                setText(null);
+                setGraphic(comboBox);
+            }
+        }
+
+        @Override
+        public void cancelEdit() {
+            super.cancelEdit();
+
+            setText(getTyp().toString());
+            setGraphic(null);
+        }
+
+        @Override
+        public void updateItem(Integer item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                if (isEditing()) {
+                    if (comboBox != null) {
+                        comboBox.setValue(getTyp());
+                    }
+                    setText(getTyp().toString());
+                    setGraphic(comboBox);
+                } else {
+                    setText(getTyp().toString());
+                    setGraphic(null);
+                }
+            }
+        }
+
+        private void createComboBox() {
+            comboBox = new ComboBox<>(integerList);
+            comboBoxConverter(comboBox);
+            comboBox.valueProperty().set(getTyp());
+            comboBox.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
+            comboBox.setOnAction((e) -> {
+                System.out.println("Committed: " + comboBox.getSelectionModel().getSelectedItem());
+                
+                commitEdit(comboBox.getSelectionModel().getSelectedItem());
+            });
+//            comboBox.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+//                if (!newValue) {
+//                    commitEdit(comboBox.getSelectionModel().getSelectedItem());
+//                }
+//            });
+        }
+
+        private void comboBoxConverter(ComboBox<Integer> comboBox) {
+            // Define rendering of the list of values in ComboBox drop down. 
+            comboBox.setCellFactory((c) -> {
+                return new ListCell<Integer>() {
+                    @Override
+                    protected void updateItem(Integer item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || empty) {
+                            setText(null);
+                        } else {
+                            setText(item.toString());
+                        }
+                    }
+                };
+            });
+        }
+
+        private Integer getTyp() {
+            return getItem() == null ? new Integer("0") : getItem();
+        }
     }
 
 }

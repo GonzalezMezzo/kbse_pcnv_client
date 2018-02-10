@@ -21,13 +21,20 @@ import kbse_nkso_client.controller.ModelController;
  */
 public class UserViewController implements Initializable {
     
-    ModelController modelctrl = Main.getModelController();
+    ModelController ctrl = Main.getModelController();
     
-    @FXML TextField submitUser;
+    @FXML TextField inputTextUser;
+    @FXML TextField inputTextFName;
+    @FXML TextField inputTextLName;
+    @FXML TextField inputTextEMail;
     
     @FXML
     private void changeUser() throws IOException{
-        modelctrl.setInputTextUser(submitUser.getText());
+        ctrl.setInputTextUser(inputTextUser.getText());
+        ctrl.setInputTextFName(inputTextFName.getText());
+        ctrl.setInputTextLName(inputTextLName.getText());
+        ctrl.setInputTextEMail(inputTextEMail.getText());
+        ctrl.changeUser();
         Main.showPostView();
     }
     
