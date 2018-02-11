@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.HostServices;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
@@ -31,6 +33,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.util.Callback;
@@ -40,6 +43,7 @@ import kbse_nkso_client.access.dto.PostDTO;
 import kbse_nkso_client.access.dto.SystemUserDTO;
 import kbse_nkso_client.controller.ModelController;
 import kbse_nkso_client.util.ComboBoxEditingCell;
+import kbse_nkso_client.util.HostServicesControllerFactory;
 
 /**
  * FXML Controller class
@@ -79,6 +83,12 @@ public class PostViewController implements Initializable {
     private TableView<PostDTO> tableViewRatings;
     @FXML
     private Label userLabel;
+    
+    private final HostServices hostServices;
+
+    public PostViewController(HostServices hostServices) {
+        this.hostServices = hostServices ;
+    }
 
     /**
      * Calls deletePost in ModelController and refreshes the displayed List of
@@ -154,8 +164,7 @@ public class PostViewController implements Initializable {
                     link.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent e) {
-                            System.out.println("This link is clicked");
-                            
+                            hostServices.showDocument(link.getText());
                         }
                     });
                     setGraphic(link);
@@ -256,7 +265,19 @@ public class PostViewController implements Initializable {
      */
     @FXML
     private void goToUserView() throws IOException {
-        Main.showUserView();
+       // Main.showUserView();
+    }
+    
+    /**
+     * Setup FXML and set the "UserView" to be the center of parenting BorderPane in our "MainView"
+     * @throws IOException
+     */
+    public void showUserView() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/UserView.fxml"));
+        loader.setControllerFactory(new HostServicesControllerFactory(hostServices));
+        BorderPane userView = loader.load();
+        Main.getMainLayout().setCenter(userView);
     }
 
     /**
