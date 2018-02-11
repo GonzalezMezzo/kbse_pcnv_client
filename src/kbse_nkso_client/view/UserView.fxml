@@ -7,21 +7,21 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kbse_nkso_client.view.UserViewController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kbse_nkso_client.view.UserViewController">
    <center>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
             <Pane layoutX="200.0" layoutY="85.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextField fx:id="inputTextUser" layoutX="217.0" layoutY="89.0" promptText="Username" />
-                  <TextField fx:id="inputTextFName" layoutX="217.0" layoutY="127.0" promptText="(opt)" />
-                  <TextField fx:id="inputTextLName" layoutX="217.0" layoutY="165.0" promptText="(opt)" />
-                  <TextField fx:id="inputTextEMail" layoutX="217.0" layoutY="202.0" promptText="(opt)" />
-                  <Button layoutX="263.0" layoutY="265.0" mnemonicParsing="false" onAction="#changeUser" text="Continue" />
-                  <Label layoutX="165.0" layoutY="94.0" text="User:" />
-                  <Label layoutX="138.0" layoutY="132.0" text="Forename:" />
-                  <Label layoutX="138.0" layoutY="170.0" text="Lastname:" />
-                  <Label layoutX="160.0" layoutY="207.0" text="E-Mail:" />
+                  <TextField fx:id="inputTextUser" layoutX="224.0" layoutY="88.0" promptText="Username" />
+                  <TextField fx:id="inputTextFName" layoutX="224.0" layoutY="126.0" promptText="(opt)" />
+                  <TextField fx:id="inputTextLName" layoutX="224.0" layoutY="164.0" promptText="(opt)" />
+                  <TextField fx:id="inputTextEMail" layoutX="224.0" layoutY="201.0" promptText="(opt)" />
+                  <Button layoutX="270.0" layoutY="264.0" mnemonicParsing="false" onAction="#changeUser" text="Continue" />
+                  <Label layoutX="172.0" layoutY="93.0" text="User:" />
+                  <Label layoutX="145.0" layoutY="131.0" text="Forename:" />
+                  <Label layoutX="145.0" layoutY="169.0" text="Lastname:" />
+                  <Label layoutX="167.0" layoutY="206.0" text="E-Mail:" />
                </children>
             </Pane>
          </children>

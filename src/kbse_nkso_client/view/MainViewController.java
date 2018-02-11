@@ -15,7 +15,6 @@ import javafx.fxml.Initializable;
  */
 public class MainViewController implements Initializable{
     
-    
     /**
      * Initializes the controller class.
      */

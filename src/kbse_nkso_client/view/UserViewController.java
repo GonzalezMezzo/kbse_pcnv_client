@@ -21,7 +21,7 @@ import kbse_nkso_client.controller.ModelController;
  */
 public class UserViewController implements Initializable {
     
-    ModelController ctrl = Main.getModelController();
+    ModelController ctrl = ModelController.getInstance();
     
     @FXML TextField inputTextUser;
     @FXML TextField inputTextFName;
@@ -29,7 +29,8 @@ public class UserViewController implements Initializable {
     @FXML TextField inputTextEMail;
     
     /**
-     * 
+     * Triggered through the "continue" Button on apllication startup.
+     * Sets user variables and calls changeUser() in ModelController.
      * @throws IOException 
      */
     @FXML
