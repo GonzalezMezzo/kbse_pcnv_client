@@ -5,6 +5,7 @@
  */
 package kbse_nkso_client.access;
 
+
 import java.util.ArrayList;
 import kbse_nkso_client.entities.Avatar;
 
@@ -15,7 +16,8 @@ import kbse_nkso_client.entities.Avatar;
 public class AvatarBuilder {
     private long id;
     private int imageHash;
-    private ArrayList<Byte> image;
+    private String contentType;
+    private byte[] imagePath;
 
     private AvatarBuilder() {}
     
@@ -33,16 +35,23 @@ public class AvatarBuilder {
         return this;
     }
     
-    public AvatarBuilder image(ArrayList<Byte> image) {
-        this.image = image;
+    public AvatarBuilder contentType(String contentType) {
+        this.contentType = contentType;
+        return this;
+    }
+    
+    public AvatarBuilder image(byte[] image) {
+        this.imagePath = image;
         return this;
     }
     
     public Avatar build() {
         Avatar res = new Avatar();
         res.setId(id);
-        res.setImage(image);
+        res.setImage(imagePath);
         res.setImageHash(imageHash);
         return res;
     }
+
+    
 }
