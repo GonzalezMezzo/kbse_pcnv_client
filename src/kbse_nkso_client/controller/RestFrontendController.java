@@ -39,6 +39,9 @@ public class RestFrontendController implements Serializable {
     private Client client;
     private WebTarget wt;
     
+    /**
+     *
+     */
     public RestFrontendController(){
         this.client = ClientBuilder.newClient();
         this.wt = client.target(ADRESS);
@@ -63,6 +66,11 @@ public class RestFrontendController implements Serializable {
         }
     }
     
+    /**
+     *
+     * @param userName
+     * @return
+     */
     public boolean deleteRating(String userName) {
         this.wt = client.target(ADRESS + "/deleteRating/" + userName);
         Invocation.Builder build = this.wt.request(MediaType.APPLICATION_JSON);
@@ -75,6 +83,10 @@ public class RestFrontendController implements Serializable {
         }
     }
    
+    /**
+     *
+     * @return
+     */
     public List<PostDTO> refreshState() {
         this.wt = client.target(ADRESS + "/refreshState");
         Invocation.Builder build = this.wt.request(MediaType.APPLICATION_JSON);
@@ -97,6 +109,13 @@ public class RestFrontendController implements Serializable {
 
     }
 
+    /**
+     *
+     * @param comment
+     * @param currentPost
+     * @param currentUser
+     * @return
+     */
     public boolean addComment(CommentDTO comment, PostDTO currentPost, SystemUserDTO currentUser) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("comment", comment.toJsonObject()).add("post", currentPost.toJsonObject()).add("user", currentUser.toJsonObject());
@@ -115,7 +134,14 @@ public class RestFrontendController implements Serializable {
         return false;
     }
     
-     public boolean addRating(PostDTO post, RatingDTO rating, SystemUserDTO user) {
+    /**
+     *
+     * @param post
+     * @param rating
+     * @param user
+     * @return
+     */
+    public boolean addRating(PostDTO post, RatingDTO rating, SystemUserDTO user) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("post", post.toJsonObject()).add("rating", rating.toJsonObject()).add("user", user.toJsonObject());
 
@@ -133,6 +159,11 @@ public class RestFrontendController implements Serializable {
         return false;
     }
 
+    /**
+     *
+     * @param avatarDTO
+     * @return
+     */
     public boolean addAvatar(AvatarDTO avatarDTO) {
         this.wt = client.target(ADRESS + "/addAvatar");
         Invocation.Builder build = this.wt.request(MediaType.APPLICATION_JSON);
@@ -148,6 +179,11 @@ public class RestFrontendController implements Serializable {
         return false;
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     public boolean addSystemUser(SystemUserDTO user) {
         this.wt = client.target(ADRESS + "/addSystemUser");
         Invocation.Builder build = this.wt.request(MediaType.APPLICATION_JSON);
@@ -163,6 +199,12 @@ public class RestFrontendController implements Serializable {
         return false;
     }
 
+    /**
+     *
+     * @param post
+     * @param currentUser
+     * @return
+     */
     public boolean addPost(PostDTO post, SystemUserDTO currentUser) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("post", post.toJsonObject()).add("user", currentUser.toJsonObject());

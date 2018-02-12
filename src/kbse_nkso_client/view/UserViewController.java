@@ -34,6 +34,10 @@ public class UserViewController implements Initializable {
     
     private final HostServices hostServices;
 
+    /**
+     *
+     * @param hostServices
+     */
     public UserViewController(HostServices hostServices) {
         this.hostServices = hostServices ;
     }
@@ -67,6 +71,8 @@ public class UserViewController implements Initializable {
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

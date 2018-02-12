@@ -24,6 +24,9 @@ public class AvatarDTO implements Serializable {
     private String contentType;
     private byte[] image;
 
+    /**
+     *
+     */
     public AvatarDTO() {
         this.id = -1L;
         this.contentType = "image/jpeg";
@@ -31,6 +34,12 @@ public class AvatarDTO implements Serializable {
         this.image = new byte[1];
     }
 
+    /**
+     *
+     * @param imageHash
+     * @param contentType
+     * @param image
+     */
     public AvatarDTO(int imageHash, String contentType, byte[] image) {
         //this.id = 0L;
         this.imageHash = imageHash;
@@ -38,6 +47,13 @@ public class AvatarDTO implements Serializable {
         this.image = image;
     }
 
+    /**
+     *
+     * @param id
+     * @param imageHash
+     * @param contentType
+     * @param image
+     */
     public AvatarDTO(long id, int imageHash,String contentType, byte[] image) {
         this.id = id;
         this.imageHash = imageHash;
@@ -45,6 +61,11 @@ public class AvatarDTO implements Serializable {
         this.image = image;
     }
 
+    /**
+     *
+     * @param a
+     * @return
+     */
     public static AvatarDTO toAvatarDTO(Avatar a) {
         if (a == null) {
             return null;
@@ -52,6 +73,10 @@ public class AvatarDTO implements Serializable {
         return new AvatarDTO(a.getId(), a.getImageHash(), a.getContentType(),a.getImage());
     }
 
+    /**
+     *
+     * @return
+     */
     public Avatar toAvatar() {
         if (this.id == null) {
             return AvatarBuilder.create().imageHash(this.imageHash).contentType(this.contentType).image(this.image).build();
@@ -60,6 +85,10 @@ public class AvatarDTO implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public JsonObject toJsonObejct() {
         JsonObjectBuilder js = Json.createObjectBuilder();
         Gson gson = new Gson();
@@ -72,6 +101,11 @@ public class AvatarDTO implements Serializable {
         return js.build();
     }
 
+    /**
+     *
+     * @param js
+     * @return
+     */
     public static AvatarDTO toPOJO(JsonObject js) {
         AvatarDTO a = new AvatarDTO();
         Gson gson = new Gson();
@@ -83,26 +117,50 @@ public class AvatarDTO implements Serializable {
         return a;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getImageHash() {
         return imageHash;
     }
 
+    /**
+     *
+     * @param imageHash
+     */
     public void setImageHash(int imageHash) {
         this.imageHash = imageHash;
     }
 
+    /**
+     *
+     * @return
+     */
     public byte[] getImage() {
         return image;
     }
 
+    /**
+     *
+     * @param image
+     */
     public void setImage(byte[] image) {
         this.image = image;
     }

@@ -38,9 +38,20 @@ public class PostDTO implements Serializable {
     //private List<Long> comments;
     //private List<Long> ratings;
 
+    /**
+     *
+     */
     public PostDTO() {
     }
 
+    /**
+     *
+     * @param url
+     * @param comment
+     * @param creatorId
+     * @param totalRating
+     * @param ratings
+     */
     public PostDTO(String url, String comment, SystemUserDTO creatorId, int totalRating, List<RatingDTO> ratings) {
         this.url = url;
         this.description = comment;
@@ -51,6 +62,16 @@ public class PostDTO implements Serializable {
         this.tmpRating = new Integer(0);
     }
 
+    /**
+     *
+     * @param id
+     * @param url
+     * @param comment
+     * @param creatorId
+     * @param totalRating
+     * @param ratings
+     * @param comments
+     */
     public PostDTO(Long id, String url, String comment, SystemUserDTO creatorId, int totalRating, List<RatingDTO> ratings, List<CommentDTO> comments) {
         this.id = id;
         this.description = comment;
@@ -62,6 +83,11 @@ public class PostDTO implements Serializable {
         this.tmpRating = new Integer(1);
     }
 
+    /**
+     *
+     * @param p
+     * @return
+     */
     public static PostDTO toPostDTO(Post p) {
         if (p == null) {
             return null;
@@ -78,6 +104,10 @@ public class PostDTO implements Serializable {
         return new PostDTO(p.getId(), p.getUrl(), p.getDescription(), SystemUserDTO.toSystemUserDTO(p.getAuthor()), p.getTotalRating(), ratings, comments);
     }
 
+    /**
+     *
+     * @return
+     */
     public Post toPost() {
         ArrayList<Rating> ratings = new ArrayList<>();
         for (RatingDTO rating : this.ratings) {
@@ -86,6 +116,10 @@ public class PostDTO implements Serializable {
         return PostBuilder.create().url(this.url).comment(this.description).creator(this.creatorId.toSystemUser()).totalRating(this.totalRating).ratings(ratings).build();
     }
 
+    /**
+     *
+     * @return
+     */
     public JsonObject toJsonObject() {
         JsonObjectBuilder js = Json.createObjectBuilder();
         Gson gson = new Gson();
@@ -104,6 +138,11 @@ public class PostDTO implements Serializable {
         return js.build();
     }
 
+    /**
+     *
+     * @param js
+     * @return
+     */
     public static PostDTO toPOJO(JsonObject js) {
         Gson gson = new Gson();
 
@@ -122,66 +161,130 @@ public class PostDTO implements Serializable {
         return p;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     *
+     * @param url
+     */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     *
+     * @return
+     */
     public SystemUserDTO getCreatorId() {
         return creatorId;
     }
 
+    /**
+     *
+     * @param creatorId
+     */
     public void setCreatorId(SystemUserDTO creatorId) {
         this.creatorId = creatorId;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTotalRating() {
         return totalRating;
     }
 
+    /**
+     *
+     * @param totalRating
+     */
     public void setTotalRating(int totalRating) {
         this.totalRating = totalRating;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<RatingDTO> getRatings() {
         return ratings;
     }
 
+    /**
+     *
+     * @param ratings
+     */
     public void setRatings(List<RatingDTO> ratings) {
         this.ratings = ratings;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<CommentDTO> getComments() {
         return comments;
     }
 
+    /**
+     *
+     * @param comments
+     */
     public void setComments(List<CommentDTO> comments) {
         this.comments = comments;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getTmpRating() {
         return tmpRating;
     }
 
+    /**
+     *
+     * @param tmpRating
+     */
     public void setTmpRating(Integer tmpRating) {
         this.tmpRating = tmpRating;
     }

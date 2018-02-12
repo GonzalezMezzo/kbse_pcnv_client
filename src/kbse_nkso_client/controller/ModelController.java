@@ -22,6 +22,10 @@ public class ModelController implements Serializable {
 
     private static ModelController instance = new ModelController();
 
+    /**
+     *
+     * @return
+     */
     public static ModelController getInstance() {
         return instance;
     }
@@ -181,98 +185,194 @@ public class ModelController implements Serializable {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     public PostDTO getCurrentPost() {
         return currentPost;
     }
 
+    /**
+     *
+     * @param currentPost
+     */
     public void setCurrentPost(PostDTO currentPost) {
         this.currentPost = currentPost;
     }
 
+    /**
+     *
+     * @return
+     */
     public SystemUserDTO getCurrentUser() {
         return currentUser;
     }
 
+    /**
+     *
+     * @param currentUser
+     */
     public void setCurrentUser(SystemUserDTO currentUser) {
         this.currentUser = currentUser;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInputCommentMessage() {
         return inputCommentMessage;
     }
 
+    /**
+     *
+     * @param inputCommentMessage
+     */
     public void setInputCommentMessage(String inputCommentMessage) {
         this.inputCommentMessage = inputCommentMessage;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInputCommentUser() {
         return inputCommentUser;
     }
 
+    /**
+     *
+     * @param inputCommentUser
+     */
     public void setInputCommentUser(String inputCommentUser) {
         this.inputCommentUser = inputCommentUser;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInputTexTURL() {
         return inputTexTURL;
     }
 
+    /**
+     *
+     * @param inputTexTURL
+     */
     public void setInputTexTURL(String inputTexTURL) {
         this.inputTexTURL = inputTexTURL;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInputTextDescription() {
         return inputTextDescription;
     }
 
+    /**
+     *
+     * @param inputTextDescription
+     */
     public void setInputTextDescription(String inputTextDescription) {
         this.inputTextDescription = inputTextDescription;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInputTextEMail() {
         return inputTextEMail;
     }
 
+    /**
+     *
+     * @param inputTextEMail
+     */
     public void setInputTextEMail(String inputTextEMail) {
         this.inputTextEMail = inputTextEMail;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInputTextFName() {
         return inputTextFName;
     }
 
+    /**
+     *
+     * @param inputTextFName
+     */
     public void setInputTextFName(String inputTextFName) {
         this.inputTextFName = inputTextFName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInputTextLName() {
         return inputTextLName;
     }
 
+    /**
+     *
+     * @param inputTextLName
+     */
     public void setInputTextLName(String inputTextLName) {
         this.inputTextLName = inputTextLName;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getInputTextNumber() {
         return inputTextNumber;
     }
 
+    /**
+     *
+     * @param inputTextNumber
+     */
     public void setInputTextNumber(int inputTextNumber) {
         this.inputTextNumber = inputTextNumber;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getInputTextUser() {
         return inputTextUser;
     }
 
+    /**
+     *
+     * @param inputTextUser
+     */
     public void setInputTextUser(String inputTextUser) {
         this.inputTextUser = inputTextUser;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<PostDTO> getPostList() {
         return postList;
     }
 
+    /**
+     *
+     * @param postList
+     */
     public void setPostList(List<PostDTO> postList) {
         this.postList = postList;
     }

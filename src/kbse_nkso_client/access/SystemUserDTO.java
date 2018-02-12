@@ -30,10 +30,22 @@ public class SystemUserDTO implements Serializable {
     private String email;
     private AvatarDTO avatar;
 
+    /**
+     *
+     */
     public SystemUserDTO() {
         this.id = -1L;
     }
 
+    /**
+     *
+     * @param id
+     * @param username
+     * @param fname
+     * @param lname
+     * @param email
+     * @param avatar
+     */
     public SystemUserDTO(Long id, String username, String fname, String lname, String email, AvatarDTO avatar) {
         this.id = id;
         this.username = username;
@@ -43,6 +55,14 @@ public class SystemUserDTO implements Serializable {
         this.avatar = avatar;
     }
 
+    /**
+     *
+     * @param username
+     * @param fname
+     * @param lname
+     * @param email
+     * @param avatar
+     */
     public SystemUserDTO(String username, String fname, String lname, String email, AvatarDTO avatar) {
         this.username = username;
         this.fname = fname;
@@ -51,6 +71,13 @@ public class SystemUserDTO implements Serializable {
         this.avatar = avatar;
     }
 
+    /**
+     *
+     * @param username
+     * @param fname
+     * @param lname
+     * @param email
+     */
     public SystemUserDTO(String username, String fname, String lname, String email) {
         this.username = username;
         this.fname = fname;
@@ -59,6 +86,11 @@ public class SystemUserDTO implements Serializable {
         this.avatar = new AvatarDTO();
     }
 
+    /**
+     *
+     * @param u
+     * @return
+     */
     public static SystemUserDTO toSystemUserDTO(SystemUser u) {
         if (u == null) {
             return null;
@@ -68,10 +100,18 @@ public class SystemUserDTO implements Serializable {
         return new SystemUserDTO(u.getId(), u.getUsername(), u.getFname(), u.getLname(), u.getEmail(), AvatarDTO.toAvatarDTO(u.getAvatar()));
     }
 
+    /**
+     *
+     * @return
+     */
     public SystemUser toSystemUser() {
         return SystemUserBuilder.create().username(this.username).firstname(this.fname).lastname(this.lname).email(this.email).avatar(this.avatar.toAvatar()).build();
     }
 
+    /**
+     *
+     * @return
+     */
     public JsonObject toJsonObject() {
         JsonObjectBuilder js = Json.createObjectBuilder();
         Gson gson = new Gson();
@@ -85,6 +125,11 @@ public class SystemUserDTO implements Serializable {
         return js.build();
     }
 
+    /**
+     *
+     * @param js
+     * @return
+     */
     public static SystemUserDTO toPOJO(JsonObject js) {
         Gson gson = new Gson();
         SystemUserDTO u = new SystemUserDTO();
@@ -101,50 +146,98 @@ public class SystemUserDTO implements Serializable {
         return u;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     *
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFname() {
         return fname;
     }
 
+    /**
+     *
+     * @param fname
+     */
     public void setFname(String fname) {
         this.fname = fname;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLname() {
         return lname;
     }
 
+    /**
+     *
+     * @param lname
+     */
     public void setLname(String lname) {
         this.lname = lname;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
     public AvatarDTO getAvatar() {
         return avatar;
     }
 
+    /**
+     *
+     * @param avatar
+     */
     public void setAvatar(AvatarDTO avatar) {
         this.avatar = avatar;
     }

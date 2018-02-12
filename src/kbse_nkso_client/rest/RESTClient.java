@@ -31,8 +31,16 @@ import kbse_nkso_client.access.dto.SystemUserDTO;
  */
 public class RESTClient implements Serializable {
     
+    /**
+     *
+     */
     public static RESTClient instance = new RESTClient();
     private final static String ADRESS = "http://localhost:8080/kbse-pcnv/r";
+
+    /**
+     *
+     * @return
+     */
     public static RESTClient getInstance(){
         return instance;
     }
@@ -220,7 +228,7 @@ public class RESTClient implements Serializable {
 
     /**
      * Sends GET request to the "getPostList" route
-     * @return List<PostDTO> containing the current state of every Post object in the database
+     * @return List of PostDTO containing the current state of every Post object in the database
      */
     public List<PostDTO> getPostList() {
         this.wt = client.target(ADRESS + "/getPostList");
@@ -259,7 +267,7 @@ public class RESTClient implements Serializable {
 
     /**
      * Sends GET request to the "getUserList" route
-     * @return List<SystemUserDTO> containing the current state of every SystemUser object in the database
+     * @return List of SystemUserDTO containing the current state of every SystemUser object in the database
      */
     public List<SystemUserDTO> getUserList() {
         this.wt = client.target(ADRESS + "/getUserList");

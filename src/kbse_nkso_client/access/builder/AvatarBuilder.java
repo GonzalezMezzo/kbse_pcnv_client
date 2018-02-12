@@ -20,30 +20,58 @@ public class AvatarBuilder {
 
     private AvatarBuilder() {}
     
+    /**
+     *
+     * @return
+     */
     public static AvatarBuilder create() {
         return new AvatarBuilder();
     }
     
+    /**
+     *
+     * @param id
+     * @return
+     */
     public AvatarBuilder id(long id) {
         this.id = id;
         return this;
     }
     
+    /**
+     *
+     * @param imageHash
+     * @return
+     */
     public AvatarBuilder imageHash(int imageHash) {
         this.imageHash = imageHash;
         return this;
     }
     
+    /**
+     *
+     * @param contentType
+     * @return
+     */
     public AvatarBuilder contentType(String contentType) {
         this.contentType = contentType;
         return this;
     }
     
+    /**
+     *
+     * @param image
+     * @return
+     */
     public AvatarBuilder image(byte[] image) {
         this.imagePath = image;
         return this;
     }
     
+    /**
+     *
+     * @return
+     */
     public Avatar build() {
         Avatar res = new Avatar();
         res.setId(id);

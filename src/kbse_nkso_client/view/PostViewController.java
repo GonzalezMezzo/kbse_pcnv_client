@@ -86,6 +86,10 @@ public class PostViewController implements Initializable {
     
     private final HostServices hostServices;
 
+    /**
+     *
+     * @param hostServices
+     */
     public PostViewController(HostServices hostServices) {
         this.hostServices = hostServices ;
     }
@@ -102,6 +106,8 @@ public class PostViewController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

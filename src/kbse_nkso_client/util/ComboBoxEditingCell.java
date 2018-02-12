@@ -19,6 +19,9 @@ public class ComboBoxEditingCell extends TableCell<PostDTO, Integer> {
 
     private ComboBox<Integer> comboBox;
 
+    /**
+     *
+     */
     public ComboBoxEditingCell() {
     }
 

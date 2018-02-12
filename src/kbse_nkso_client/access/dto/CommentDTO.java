@@ -32,8 +32,17 @@ public class CommentDTO implements Serializable {
     private SystemUserDTO creatorId;
     private PostDTO ownerId;
 
+    /**
+     *
+     */
     public CommentDTO() {}
 
+    /**
+     *
+     * @param message
+     * @param creatorId
+     * @param ownerId
+     */
     public CommentDTO(String message, SystemUserDTO creatorId, PostDTO ownerId) {
         this.creatorId = creatorId;
         this.timeStamp = new SimpleDateFormat("HHmmss_ddMMyyyy").format(Calendar.getInstance().getTime());
@@ -41,6 +50,13 @@ public class CommentDTO implements Serializable {
         this.ownerId = ownerId;
     }
 
+    /**
+     *
+     * @param id
+     * @param message
+     * @param creatorId
+     * @param timeStamp
+     */
     public CommentDTO(Long id, String message, SystemUserDTO creatorId, String timeStamp) {
         this.id = id;
         this.message = message;
@@ -48,6 +64,14 @@ public class CommentDTO implements Serializable {
         this.creatorId = creatorId;
     }
     
+    /**
+     *
+     * @param id
+     * @param message
+     * @param creatorId
+     * @param timestamp
+     * @param ownerId
+     */
     public CommentDTO(Long id, String message, SystemUserDTO creatorId, String timestamp, PostDTO ownerId) {
         this.id = id;
         this.creatorId = creatorId;
@@ -56,6 +80,11 @@ public class CommentDTO implements Serializable {
         this.ownerId = ownerId;
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public static CommentDTO toCommentDTO(Comment c) {
         if (c == null) {
             return null;
@@ -63,11 +92,19 @@ public class CommentDTO implements Serializable {
         return new CommentDTO(c.getId(), c.getMessage(), SystemUserDTO.toSystemUserDTO(c.getAuthor()), c.getTimestamp()/*, PostDTO.toPostDTO(c.getPost())*/);
     }
 
+    /**
+     *
+     * @return
+     */
     public Comment toComment() {
         return CommentBuilder.create().message(this.message)
                 .creator(this.creatorId.toSystemUser()).timestamp(this.timeStamp).owner(this.ownerId.toPost()).build();
     }
 
+    /**
+     *
+     * @return
+     */
     public JsonObject toJsonObject() {
         Gson gson = new Gson();
 
@@ -82,6 +119,11 @@ public class CommentDTO implements Serializable {
         return js.build();
     }
 
+    /**
+     *
+     * @param js
+     * @return
+     */
     public static CommentDTO toPOJO(JsonObject js) {
         CommentDTO c = new CommentDTO();
 
@@ -95,42 +137,82 @@ public class CommentDTO implements Serializable {
         return c;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     *
+     * @param message
+     */
     public void setMessage(String message) {
         this.message = message;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTimeStamp() {
         return timeStamp;
     }
 
+    /**
+     *
+     * @param timeStamp
+     */
     public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
     }
 
+    /**
+     *
+     * @return
+     */
     public SystemUserDTO getCreatorId() {
         return creatorId;
     }
 
+    /**
+     *
+     * @param creatorId
+     */
     public void setCreatorId(SystemUserDTO creatorId) {
         this.creatorId = creatorId;
     }
 
+    /**
+     *
+     * @return
+     */
     public PostDTO getOwnerId() {
         return ownerId;
     }
 
+    /**
+     *
+     * @param ownerId
+     */
     public void setOwnerId(PostDTO ownerId) {
         this.ownerId = ownerId;
     }
