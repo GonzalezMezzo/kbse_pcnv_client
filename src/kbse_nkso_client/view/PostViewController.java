@@ -231,6 +231,7 @@ public class PostViewController implements Initializable {
     public void submitComment() {
         try {
             modelctrl.submitComment(submitComment.getText());
+            refreshCommentList();
         } catch (Exception e) {
             try {
                 showError(e, "No Post selected,\n"
@@ -239,7 +240,6 @@ public class PostViewController implements Initializable {
                 System.out.println("Error rendering alert window");
             }
         }
-        refreshCommentList();
     }
 
     /**
