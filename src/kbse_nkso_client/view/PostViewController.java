@@ -123,7 +123,7 @@ public class PostViewController implements Initializable {
 
             @Override
             public void changed(ObservableValue<? extends PostDTO> observable, PostDTO oldValue, PostDTO newValue) {
-                selectPost(newValue);
+                    selectPost(newValue);
             }
         });
     }
@@ -247,8 +247,12 @@ public class PostViewController implements Initializable {
      * database Called from the "Submit" Button in the "Submit" tab in PostView
      */
     @FXML
-    public void submitPost() {
+    public void submitPost() throws IOException {
+        if(submitURL.getText().matches("(w{3}).([a-zA-Z0-9-_]{1,}\\.?)+(\\.)([a-zA-Z]{2,6})")){
         modelctrl.submitLink(submitURL.getText(), submitDesc.getText());
+        }else{
+            showWarning("pls enter only links in form: www.sample.domain");
+        }
         refreshListViewPosts();
         refreshRatingTable();
     }
@@ -295,7 +299,7 @@ public class PostViewController implements Initializable {
      * ListViewPosts
      */
     @FXML
-    private void selectPost(PostDTO post) {
+    private void selectPost(PostDTO post){
         this.currentPost = post;
         this.description.setText(post.getDescription());
         this.link.setText(post.getUrl());
