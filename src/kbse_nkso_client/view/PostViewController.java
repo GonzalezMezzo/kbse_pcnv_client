@@ -271,7 +271,7 @@ public class PostViewController implements Initializable {
      */
     @FXML
     private void goToUserView() throws IOException {
-       // Main.showUserView();
+       showUserView();
     }
     
     /**
