@@ -27,65 +27,29 @@ public class Rating implements Serializable {
     @ManyToOne(targetEntity = SystemUser.class)
     private SystemUser user;
 
-    
     //@ManyToOne(targetEntity = Post.class)
     //private Post post;
-
-    /**
-     *
-     * @return
-     */
-
     public Long getId() {
         return this.id;
     }
 
-    /**
-     *
-     * @param id
-     */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     *
-     * @return
-     */
     public int getRatedValue() {
         return this.ratedValue;
     }
 
-    /**
-     *
-     * @param ratedValue
-     */
     public void setRatedValue(int ratedValue) {
         this.ratedValue = ratedValue;
     }
 
-    /**
-     *
-     * @return
-     */
     public SystemUser getUser() {
         return this.user;
     }
 
-    /**
-     *
-     * @param user
-     */
     public void setUser(SystemUser user) {
         this.user = user;
     }
-    /*
-    public Post getPost() {
-        return this.post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
-    */
 }

@@ -21,19 +21,21 @@ import kbse_nkso_client.util.HostServicesControllerFactory;
  * @author Philipp
  */
 public class Main extends Application {
-    
+
     private static BorderPane mainLayout;
     private Stage primaryStage;
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
-    
+
     /**
-     * Setup FXML and set the "PostView" to be the center of parenting BorderPane in our "MainView"
+     * Setup FXML and set the "PostView" to be the center of parenting
+     * BorderPane in our "MainView"
+     *
      * @throws IOException
      */
     public void showPostView() throws IOException {
@@ -43,9 +45,11 @@ public class Main extends Application {
         BorderPane postView = loader.load();
         mainLayout.setCenter(postView);
     }
-    
+
     /**
-     * Setup FXML and set the "UserView" to be the center of parenting BorderPane in our "MainView"
+     * Setup FXML and set the "UserView" to be the center of parenting
+     * BorderPane in our "MainView"
+     *
      * @throws IOException
      */
     public void showUserView() throws IOException {
@@ -62,8 +66,9 @@ public class Main extends Application {
 
     /**
      * Sets the primary Stage and title for the application
+     *
      * @param stage the main application stage
-     * @throws Exception 
+     * @throws Exception
      */
     @Override
     public void start(Stage stage) throws Exception {
@@ -72,20 +77,20 @@ public class Main extends Application {
         showMainView();
         showUserView();
     }
-    
+
     /**
      * Setup FXML and create the Scene the whole application is nested in.
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     private void showMainView() throws IOException {
-       FXMLLoader loader = new FXMLLoader();
-       loader.setLocation(Main.class.getResource("view/MainView.fxml"));
-       mainLayout = loader.load();
-       
-       Scene scene = new Scene(mainLayout);
-       primaryStage.setScene(scene);
-       primaryStage.show();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/MainView.fxml"));
+        mainLayout = loader.load();
+
+        Scene scene = new Scene(mainLayout);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
-    
 
 }

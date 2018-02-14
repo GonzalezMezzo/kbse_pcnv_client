@@ -8,8 +8,6 @@ package kbse_nkso_client.access.builder;
 import kbse_nkso_client.entities.Avatar;
 import kbse_nkso_client.entities.SystemUser;
 
-
-
 /**
  *
  * @author nolde
@@ -26,78 +24,40 @@ public class SystemUserBuilder {
     private SystemUserBuilder() {
     }
 
-    /**
-     *
-     * @return
-     */
     public static SystemUserBuilder create() {
         return new SystemUserBuilder();
     }
 
-    /**
-     *
-     * @param id
-     * @return
-     */
     public SystemUserBuilder id(long id) {
         this.id = id;
         return this;
     }
-    
-    /**
-     *
-     * @param username
-     * @return
-     */
+
     public SystemUserBuilder username(String username) {
         this.username = username;
         return this;
     }
-    
-    /**
-     *
-     * @param fname
-     * @return
-     */
+
     public SystemUserBuilder firstname(String fname) {
         this.fname = fname;
         return this;
     }
-    
-    /**
-     *
-     * @param lname
-     * @return
-     */
+
     public SystemUserBuilder lastname(String lname) {
         this.lname = lname;
         return this;
     }
-    
-    /**
-     *
-     * @param email
-     * @return
-     */
+
     public SystemUserBuilder email(String email) {
         this.email = email;
         return this;
     }
-    
-    /**
-     *
-     * @param avatar
-     * @return
-     */
+
     public SystemUserBuilder avatar(Avatar avatar) {
         this.avatar = avatar;
         return this;
     }
-    
-    /**
-     *
-     * @return
-     */
+
     public SystemUser build() {
         SystemUser res = new SystemUser();
         res.setId(this.id);

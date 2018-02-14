@@ -13,17 +13,17 @@ import javafx.util.Callback;
  *
  * @author Philipp
  */
-//https://stackoverflow.com/questions/33094981/javafx-8-open-a-link-in-a-browser-without-reference-to-application
-public class HostServicesControllerFactory implements Callback<Class<?>,Object> {
+public class HostServicesControllerFactory implements Callback<Class<?>, Object> {
 
-    private final HostServices hostServices ;
+    private final HostServices hostServices;
 
     /**
+     * Used to pass HostServices instance to Constructor of PostViewController
      *
      * @param hostServices
      */
     public HostServicesControllerFactory(HostServices hostServices) {
-        this.hostServices = hostServices ;
+        this.hostServices = hostServices;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class HostServicesControllerFactory implements Callback<Class<?>,Object> 
         try {
             for (Constructor<?> c : type.getConstructors()) {
                 if (c.getParameterCount() == 1 && c.getParameterTypes()[0] == HostServices.class) {
-                    return c.newInstance(hostServices) ;
+                    return c.newInstance(hostServices);
                 }
             }
             return type.newInstance();

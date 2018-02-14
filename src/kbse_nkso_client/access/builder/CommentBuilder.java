@@ -5,11 +5,9 @@
  */
 package kbse_nkso_client.access.builder;
 
-
 import kbse_nkso_client.entities.Comment;
 import kbse_nkso_client.entities.Post;
 import kbse_nkso_client.entities.SystemUser;
-
 
 /**
  *
@@ -23,20 +21,13 @@ public class CommentBuilder {
     private SystemUser creatorId;
     private Post ownerId;
 
-    private CommentBuilder(){}
-    
-    /**
-     *
-     * @return
-     */
+    private CommentBuilder() {
+    }
+
     public static CommentBuilder create() {
         return new CommentBuilder();
     }
 
-    /**
-     *
-     * @return
-     */
     public Comment build() {
         Comment res = new Comment();
         res.setId(this.id);
@@ -47,54 +38,28 @@ public class CommentBuilder {
         return res;
     }
 
-    /**
-     *
-     * @param id
-     * @return
-     */
     public CommentBuilder id(long id) {
         this.id = id;
         return this;
     }
 
-    /**
-     *
-     * @param message
-     * @return
-     */
     public CommentBuilder message(String message) {
         this.message = message;
         return this;
     }
 
-    /**
-     *
-     * @param timestamp
-     * @return
-     */
     public CommentBuilder timestamp(String timestamp) {
         this.timeStamp = timestamp;
         return this;
     }
 
-    /**
-     *
-     * @param creator
-     * @return
-     */
     public CommentBuilder creator(SystemUser creator) {
         this.creatorId = creator;
         return this;
     }
-    
-    /**
-     *
-     * @param owner
-     * @return
-     */
-    public CommentBuilder owner(Post owner){
+
+    public CommentBuilder owner(Post owner) {
         this.ownerId = owner;
         return this;
     }
-
 }

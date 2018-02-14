@@ -10,8 +10,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.HostServices;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -83,7 +81,7 @@ public class PostViewController implements Initializable {
     private TableView<PostDTO> tableViewRatings;
     @FXML
     private Label userLabel;
-    
+
     private final HostServices hostServices;
 
     /**
@@ -91,7 +89,7 @@ public class PostViewController implements Initializable {
      * @param hostServices
      */
     public PostViewController(HostServices hostServices) {
-        this.hostServices = hostServices ;
+        this.hostServices = hostServices;
     }
 
     /**
@@ -106,6 +104,7 @@ public class PostViewController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -123,7 +122,11 @@ public class PostViewController implements Initializable {
 
             @Override
             public void changed(ObservableValue<? extends PostDTO> observable, PostDTO oldValue, PostDTO newValue) {
+                try {
                     selectPost(newValue);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -231,13 +234,15 @@ public class PostViewController implements Initializable {
     public void submitComment() {
         try {
             modelctrl.submitComment(submitComment.getText());
+            modelctrl.refreshState();
             refreshCommentList();
         } catch (Exception e) {
             try {
+                refreshListViewPosts();
                 showError(e, "No Post selected,\n"
                         + "please Select a Post first to submit your Comment");
-            } catch (IOException ex) {
-                System.out.println("Error rendering alert window");
+            } catch (Exception ex) {
+                //ex.printStackTrace();
             }
         }
     }
@@ -248,9 +253,9 @@ public class PostViewController implements Initializable {
      */
     @FXML
     public void submitPost() throws IOException {
-        if(submitURL.getText().matches("(w{3}).([a-zA-Z0-9-_]{1,}\\.?)+(\\.)([a-zA-Z]{2,6})")){
-        modelctrl.submitLink(submitURL.getText(), submitDesc.getText());
-        }else{
+        if (submitURL.getText().matches("(w{3}).([a-zA-Z0-9-_]{1,}\\.?)+(\\.)([a-zA-Z]{2,6})")) {
+            modelctrl.submitLink(submitURL.getText(), submitDesc.getText());
+        } else {
             showWarning("pls enter only links in form: www.sample.domain");
         }
         refreshListViewPosts();
@@ -275,11 +280,13 @@ public class PostViewController implements Initializable {
      */
     @FXML
     private void goToUserView() throws IOException {
-       showUserView();
+        showUserView();
     }
-    
+
     /**
-     * Setup FXML and set the "UserView" to be the center of parenting BorderPane in our "MainView"
+     * Setup FXML and set the "UserView" to be the center of parenting
+     * BorderPane in our "MainView"
+     *
      * @throws IOException
      */
     public void showUserView() throws IOException {
@@ -299,10 +306,13 @@ public class PostViewController implements Initializable {
      * ListViewPosts
      */
     @FXML
-    private void selectPost(PostDTO post){
-        this.currentPost = post;
-        this.description.setText(post.getDescription());
-        this.link.setText(post.getUrl());
+    private void selectPost(PostDTO post) {
+        try {
+            this.currentPost = post;
+            this.description.setText(post.getDescription());
+            this.link.setText(post.getUrl());
+        } catch (Exception e) {
+        }
         refreshCommentList();
         refreshRatingTable();
     }

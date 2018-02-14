@@ -30,7 +30,7 @@ import kbse_nkso_client.access.dto.SystemUserDTO;
  * @author philippnienhuser
  */
 public class RESTClient implements Serializable {
-    
+
     /**
      *
      */
@@ -41,7 +41,7 @@ public class RESTClient implements Serializable {
      *
      * @return
      */
-    public static RESTClient getInstance(){
+    public static RESTClient getInstance() {
         return instance;
     }
 
@@ -52,13 +52,13 @@ public class RESTClient implements Serializable {
         this.client = ClientBuilder.newClient();
         this.wt = client.target(ADRESS);
     }
-    
 
     /**
-     * Sends POST request containig the CommentDTO, corresponding PostDTO and the SystemUserDTO
-     * to the "/addComments" route 
+     * Sends POST request containig the CommentDTO, corresponding PostDTO and
+     * the SystemUserDTO to the "/addComments" route
+     *
      * @param comment the comment to be persisted
-     * @param currentPost post the comment belongs to 
+     * @param currentPost post the comment belongs to
      * @param currentUser user who created the comment
      * @return boolean indicating the success or failure
      */
@@ -82,7 +82,9 @@ public class RESTClient implements Serializable {
     }
 
     /**
-     * Sends POST request containing the SystemUserDTO and the PostDTO to be persisted to the "addPost" route 
+     * Sends POST request containing the SystemUserDTO and the PostDTO to be
+     * persisted to the "addPost" route
+     *
      * @param post post to be persisted
      * @param currentUser the user who created the new post
      * @return boolean indicating the success or failure
@@ -107,11 +109,12 @@ public class RESTClient implements Serializable {
     }
 
     /**
-     * Sends POST request containing the SystemUserDTO, RatingDTO and the PostDTO this rating belongs to 
-     * to the "addRating" route
-     * @param post post the rating need to be added to 
+     * Sends POST request containing the SystemUserDTO, RatingDTO and the
+     * PostDTO this rating belongs to to the "addRating" route
+     *
+     * @param post post the rating need to be added to
      * @param rating the rating to be persisted
-     * @param user the user this rating belongs to 
+     * @param user the user this rating belongs to
      * @return boolean indicating the success or failure
      */
     public boolean addRating(PostDTO post, RatingDTO rating, SystemUserDTO user) {
@@ -130,12 +133,14 @@ public class RESTClient implements Serializable {
             //e.printStackTrace();
             return false;
         }
-        
+
     }
 
     /**
-     * Sends  POST request containing submitted userdata to the "addSystemUser" route
-     * @param user user object to be persisted 
+     * Sends POST request containing submitted userdata to the "addSystemUser"
+     * route
+     *
+     * @param user user object to be persisted
      * @return boolean indicating the success or failure
      */
     public boolean addSystemUser(SystemUserDTO user) {
@@ -152,9 +157,11 @@ public class RESTClient implements Serializable {
             return false;
         }
     }
-    
+
     /**
-     * Sends  POST request containing submitted userdata to the "updateSystemUser" route
+     * Sends POST request containing submitted userdata to the
+     * "updateSystemUser" route
+     *
      * @param user user object to be updated
      * @return boolean indicating the success or failure
      */
@@ -174,7 +181,9 @@ public class RESTClient implements Serializable {
     }
 
     /**
-     * Sends DELETE request containing the id of the post to be deleted from the database
+     * Sends DELETE request containing the id of the post to be deleted from the
+     * database
+     *
      * @param id id of the post to be deleted
      * @return boolean indicating the success or failure
      */
@@ -192,8 +201,10 @@ public class RESTClient implements Serializable {
     }
 
     /**
-     * Sends DELETE request containing the unique username of the user whose ratings will be removed from the database
-     * @param userName username of the SystemUser whose ratings will be removed 
+     * Sends DELETE request containing the unique username of the user whose
+     * ratings will be removed from the database
+     *
+     * @param userName username of the SystemUser whose ratings will be removed
      * @return boolean indicating the success or failure
      */
     public boolean deleteRating(String userName) {
@@ -209,9 +220,12 @@ public class RESTClient implements Serializable {
     }
 
     /**
-     * Sends GET request to the "getPost/{postId}" route requesting the curretn state of the post object with given id
-     * @param postId id of the Post 
-     * @return PostDTO representing the current state of the Post object with requested id
+     * Sends GET request to the "getPost/{postId}" route requesting the curretn
+     * state of the post object with given id
+     *
+     * @param postId id of the Post
+     * @return PostDTO representing the current state of the Post object with
+     * requested id
      */
     public PostDTO getPost(long postId) {
         this.wt = client.target(ADRESS + "/getPost/" + postId);
@@ -228,7 +242,9 @@ public class RESTClient implements Serializable {
 
     /**
      * Sends GET request to the "getPostList" route
-     * @return List of PostDTO containing the current state of every Post object in the database
+     *
+     * @return List of PostDTO containing the current state of every Post object
+     * in the database
      */
     public List<PostDTO> getPostList() {
         this.wt = client.target(ADRESS + "/getPostList");
@@ -247,10 +263,13 @@ public class RESTClient implements Serializable {
         }
     }
 
-     /**
-     * Sends GET request to the "getUser/{username}" route requesting the current state of the SystemUser object with given username
+    /**
+     * Sends GET request to the "getUser/{username}" route requesting the
+     * current state of the SystemUser object with given username
+     *
      * @param username username of the SystemUSer
-     * @return SystemUserDTO representing the current state of the user with requested id
+     * @return SystemUserDTO representing the current state of the user with
+     * requested id
      */
     public SystemUserDTO getSystemUser(String username) {
         this.wt = client.target(ADRESS + "/getSystemUser/" + username);
@@ -267,7 +286,9 @@ public class RESTClient implements Serializable {
 
     /**
      * Sends GET request to the "getUserList" route
-     * @return List of SystemUserDTO containing the current state of every SystemUser object in the database
+     *
+     * @return List of SystemUserDTO containing the current state of every
+     * SystemUser object in the database
      */
     public List<SystemUserDTO> getUserList() {
         this.wt = client.target(ADRESS + "/getUserList");

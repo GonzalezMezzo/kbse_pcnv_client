@@ -35,7 +35,7 @@ public class ComboBoxEditingCell extends TableCell<PostDTO, Integer> {
         setText(getInteger().toString());
         setGraphic(null);
     }
-    
+
     /**
      * Override of startEdit to allow rendering a ComboBox on edit
      */
@@ -79,6 +79,7 @@ public class ComboBoxEditingCell extends TableCell<PostDTO, Integer> {
 
     /**
      * Define rendering of the list of values in ComboBox
+     *
      * @param comboBox
      */
     private void comboBoxConverter(ComboBox<Integer> comboBox) {
@@ -97,7 +98,7 @@ public class ComboBoxEditingCell extends TableCell<PostDTO, Integer> {
             };
         });
     }
-    
+
     /**
      * creates new ComboBox whoose Values are defined in integerList
      */

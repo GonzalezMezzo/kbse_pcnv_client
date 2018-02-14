@@ -5,7 +5,6 @@
  */
 package kbse_nkso_client.rest;
 
-
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
@@ -14,4 +13,5 @@ import javax.ws.rs.core.Application;
  * @author philippnienhueser
  */
 @ApplicationPath("r")
-public class ApplicationConfig extends Application{}
+public class ApplicationConfig extends Application {
+}

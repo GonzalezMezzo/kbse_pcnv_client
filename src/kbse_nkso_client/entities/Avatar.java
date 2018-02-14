@@ -4,8 +4,6 @@
 package kbse_nkso_client.entities;
 
 import java.io.Serializable;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,8 +19,9 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Avatar.findAll", query= "SELECT s FROM Avatar s"),
-    @NamedQuery(name = "Avatar.findByHash", query= "SELECT s FROM Avatar s WHERE s.imageHash = :hash")
+    @NamedQuery(name = "Avatar.findAll", query = "SELECT s FROM Avatar s")
+    ,
+    @NamedQuery(name = "Avatar.findByHash", query = "SELECT s FROM Avatar s WHERE s.imageHash = :hash")
 })
 public class Avatar implements Serializable {
 
@@ -33,7 +32,7 @@ public class Avatar implements Serializable {
     @Column(unique = true, nullable = false)
     @Basic
     private int imageHash;
-    
+
     @Column(nullable = false)
     @Basic
     private String contentType;
@@ -43,80 +42,41 @@ public class Avatar implements Serializable {
     @Basic
     private byte[] image;
 
-    //TODO: delete later
-
-    /**
-     *
-     */
     public Avatar() {
         this.imageHash = -1;
         this.contentType = "image/jpeg";
         this.image = new byte[1];
-    }  
+    }
 
-    /**
-     *
-     * @return
-     */
     public Long getId() {
         return this.id;
     }
 
-    /**
-     *
-     * @param id
-     */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     *
-     * @return
-     */
     public int getImageHash() {
         return this.imageHash;
     }
 
-    /**
-     *
-     * @param imageHash
-     */
     public void setImageHash(int imageHash) {
         this.imageHash = imageHash;
     }
 
-    /**
-     *
-     * @return
-     */
     public byte[] getImage() {
         return this.image;
     }
 
-    /**
-     *
-     * @param path
-     */
     public void setImage(byte[] path) {
         this.image = path;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getContentType() {
         return contentType;
     }
 
-    /**
-     *
-     * @param contentType
-     */
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
-    
-    
 }

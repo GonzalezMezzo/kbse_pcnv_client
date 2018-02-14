@@ -24,14 +24,18 @@ import kbse_nkso_client.util.HostServicesControllerFactory;
  * @author Philipp
  */
 public class UserViewController implements Initializable {
-    
+
     ModelController ctrl = ModelController.getInstance();
-    
-    @FXML TextField inputTextUser;
-    @FXML TextField inputTextFName;
-    @FXML TextField inputTextLName;
-    @FXML TextField inputTextEMail;
-    
+
+    @FXML
+    TextField inputTextUser;
+    @FXML
+    TextField inputTextFName;
+    @FXML
+    TextField inputTextLName;
+    @FXML
+    TextField inputTextEMail;
+
     private final HostServices hostServices;
 
     /**
@@ -39,16 +43,17 @@ public class UserViewController implements Initializable {
      * @param hostServices
      */
     public UserViewController(HostServices hostServices) {
-        this.hostServices = hostServices ;
+        this.hostServices = hostServices;
     }
-    
+
     /**
-     * Triggered through the "continue" Button on apllication startup.
-     * Sets user variables and calls changeUser() in ModelController.
-     * @throws IOException 
+     * Triggered through the "continue" Button on apllication startup. Sets user
+     * variables and calls changeUser() in ModelController.
+     *
+     * @throws IOException
      */
     @FXML
-    private void changeUser() throws IOException{
+    private void changeUser() throws IOException {
         ctrl.setInputTextUser(inputTextUser.getText());
         ctrl.setInputTextFName(inputTextFName.getText());
         ctrl.setInputTextLName(inputTextLName.getText());
@@ -56,9 +61,11 @@ public class UserViewController implements Initializable {
         ctrl.changeUser();
         showPostView();
     }
-    
+
     /**
-     * Setup FXML and set the "PostView" to be the center of parenting BorderPane in our "MainView"
+     * Setup FXML and set the "PostView" to be the center of parenting
+     * BorderPane in our "MainView"
+     *
      * @throws IOException
      */
     public void showPostView() throws IOException {
@@ -68,15 +75,16 @@ public class UserViewController implements Initializable {
         BorderPane postView = loader.load();
         Main.getMainLayout().setCenter(postView);
     }
-    
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
-    
+
+    }
+
 }
