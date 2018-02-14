@@ -173,7 +173,7 @@ public class PostViewController implements Initializable {
                     link.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent e) {
-                            hostServices.showDocument(link.getText());
+                            hostServices.showDocument("http://"+link.getText());
                         }
                     });
                     setGraphic(link);
